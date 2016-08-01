@@ -1,6 +1,6 @@
-Python Service Launcher for Windows (Python Cron) v0.9
+Python Service Launcher for Unix (Python Cron) v0.9
 ======================================================
-Python Tool for Windows Service Loading and Scheduling
+Python Tool for Unix Service Loading and Scheduling
 
 Usage Example - LogWriterSvc.py
 -------------------------------
