@@ -9,7 +9,8 @@ import os
 import glob
 import re
 import sys
-import inspect
+
+from utils import retrCwd
 
 from importlib import import_module, reload, invalidate_caches
 
@@ -22,12 +23,8 @@ from ServiceLogger import ServiceLogger
 from services.ServiceException import LoggerException, ScheduleException, ScriptException
 
 
-if hasattr(sys, "frozen") and sys.frozen in ("windows_exe", "console_exe"):
-    cwd = os.path.dirname(os.path.abspath(sys.executable))
-else:
-    cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+cwd = retrCwd()
 os.chdir(os.path.dirname(cwd))
-
 svcdir = os.path.join(cwd, "services")
 
 
