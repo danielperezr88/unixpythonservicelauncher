@@ -28,6 +28,7 @@ from services.ServiceException import LoggerException, ScheduleException, Script
 cwd = retrCwd()
 os.chdir(os.path.dirname(cwd))
 svcdir = os.path.join(cwd, "services")
+sys.path.append(svcdir)
 
 
 class ServiceLauncherDaemon(Daemon):
