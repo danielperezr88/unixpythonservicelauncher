@@ -56,7 +56,7 @@ class Daemon(metaclass=ABCMeta):
             os.dup2(si.fileno(), sys.stdin.fileno())
         with open(self.stdout, 'a+') as so:
             os.dup2(so.fileno(), sys.stdout.fileno())
-        with open(self.stderr, 'a+', 0) as se:
+        with open(self.stderr, 'ab+', 0) as se:
             os.dup2(se.fileno(), sys.stderr.fileno())
 
         # write pidfile

@@ -10,6 +10,8 @@ import glob
 import re
 import sys
 
+from time import sleep
+
 from utils import retrCwd
 
 from importlib import import_module, reload, invalidate_caches
@@ -109,6 +111,9 @@ class ServiceLauncherDaemon(Daemon):
                     del instances[script]
                 del todel
                 invalidate_caches()
+
+            sleep(60)
+
         """ [actual service code between rests] """
 
                   

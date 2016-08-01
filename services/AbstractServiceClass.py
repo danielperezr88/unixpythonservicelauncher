@@ -13,9 +13,7 @@ if hasattr(sys, "frozen") and sys.frozen in ("windows_exe", "console_exe"):
 else:
     cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 os.chdir(os.path.dirname(cwd))
-
-svcDir = os.path.join(cwd, "services")
-sys.path.append(svcDir)
+sys.path.append(cwd)
 
 from ServiceLogger import ServiceLogger
 
@@ -67,7 +65,7 @@ class AbstractServiceClass(metaclass=ABCMeta):
 
         def __load__schedule__(self):
             try:
-                fcron = CronTab(tabfile=os.path.join("services", "serviceCron.tab"))
+                fcron = CronTab(tabfile=os.path.join(cwd, "serviceCron.tab"))
                 job = [j for j in list(fcron.find_command(self._classname_)) if j.command == self._classname_]
                 if len(job) <= 0:
                     raise Exception('Crontab command %s not found'%(self._classname_,))
