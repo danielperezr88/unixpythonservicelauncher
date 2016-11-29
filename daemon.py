@@ -5,6 +5,9 @@ import atexit
 from signal import SIGTERM
 from abc import ABCMeta, abstractmethod
 
+def check_pid(pid):
+    return int(
+        os.popen("ps -p %d --no-headers | wc -l" % (int(pid) if len(pid) > 0 else 0,)).read().strip()) == 1
 
 class Daemon(metaclass=ABCMeta):
     """
@@ -81,9 +84,10 @@ class Daemon(metaclass=ABCMeta):
             pid = None
 
         if pid:
-            message = "pidfile %s already exist. Daemon already running?\n"
-            sys.stderr.write(message % (self.pidfile,))
-            sys.exit(1)
+            if check_pid(pid):
+                message = "pidfile %s refers to an open process. Is daemon already running?\n"
+                sys.stderr.write(message % (self.pidfile,))
+                sys.exit(1)
 
         # Start the daemon
         self.daemonize()
